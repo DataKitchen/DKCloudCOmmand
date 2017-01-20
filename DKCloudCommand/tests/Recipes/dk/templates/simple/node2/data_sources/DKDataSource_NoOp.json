@@ -1,0 +1,5 @@
+{
+    "type": "DKDataSource_NoOp",
+    "name": "noopsource",
+    "keys": { }
+}

@@ -1,0 +1,40 @@
+{
+    "nodes-run-one-node": [
+        [
+            "node2", 
+            {}
+        ], 
+        [
+            "runonenode-do-nothing-node", 
+            {}
+        ]
+    ], 
+    "nodes": [
+        [
+            "node1", 
+            {}
+        ], 
+        [
+            "node2", 
+            {}
+        ]
+    ], 
+    "edges": [
+        [
+            "node1", 
+            "node2", 
+            {
+                "weight": 0
+            }
+        ]
+    ], 
+    "edges-run-one-node": [
+        [
+            "node2", 
+            "runonenode-do-nothing-node", 
+            {
+                "weight": 0
+            }
+        ]
+    ]
+}

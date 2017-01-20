@@ -1,0 +1,15 @@
+{
+    "preconditions": {
+        "delay-after-recipe-start": {
+            "test-variable":  "node-start-after-delay",
+            "type": "run-delay-after-recipe-start",
+            "action": "retry",
+            "keep-history": "False",
+            "test-logic": {
+                "test-variable": "node-start-after-delay",
+                "test-compare": "greater-than-equal-to",
+                "test-metric": "$dsmalldelay"
+            }
+        }
+    }
+}

@@ -1,0 +1,216 @@
+[
+    {
+        "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/blobs/6752103b3b5cea836b6b98f6c928a4fc35619da8", 
+        "sha": "6752103b3b5cea836b6b98f6c928a4fc35619da8", 
+        "mode": "100644", 
+        "path": "description.json", 
+        "type": "blob", 
+        "size": 43
+    }, 
+    {
+        "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/blobs/d3e5839f2cb847f8aa674279e9b5c8cd0cdbee69", 
+        "sha": "d3e5839f2cb847f8aa674279e9b5c8cd0cdbee69", 
+        "mode": "100644", 
+        "path": "graph.json", 
+        "type": "blob", 
+        "size": 133
+    }, 
+    {
+        "truncated": false, 
+        "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/trees/a7f8a171377b0d27896ba2b321cdcab32eb464d8", 
+        "tree": [
+            {
+                "truncated": false, 
+                "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/trees/19f4552d6301907080f37bba00c7abd7aa4a5670", 
+                "tree": [
+                    {
+                        "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/blobs/a2ec0e45f43a803be098271ba02fd48b0f205974", 
+                        "sha": "a2ec0e45f43a803be098271ba02fd48b0f205974", 
+                        "mode": "100644", 
+                        "path": "DKDataSink_NoOp.json", 
+                        "type": "blob", 
+                        "size": 74
+                    }
+                ], 
+                "sha": "19f4552d6301907080f37bba00c7abd7aa4a5670", 
+                "mode": "040000", 
+                "path": "data_sinks", 
+                "type": "tree"
+            }, 
+            {
+                "truncated": false, 
+                "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/trees/ac46d5e462f5f0f4d779c19f39b336225f588263", 
+                "tree": [
+                    {
+                        "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/blobs/6db462dbb68ce1e23f48ccd486eae3e9d0198da2", 
+                        "sha": "6db462dbb68ce1e23f48ccd486eae3e9d0198da2", 
+                        "mode": "100644", 
+                        "path": "DKDataSource_NoOp.json", 
+                        "type": "blob", 
+                        "size": 78
+                    }
+                ], 
+                "sha": "ac46d5e462f5f0f4d779c19f39b336225f588263", 
+                "mode": "040000", 
+                "path": "data_sources", 
+                "type": "tree"
+            }, 
+            {
+                "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/blobs/8f93fe65faafaae50157b890ce9be2eb26808a13", 
+                "sha": "8f93fe65faafaae50157b890ce9be2eb26808a13", 
+                "mode": "100644", 
+                "path": "description.json", 
+                "type": "blob", 
+                "size": 62
+            }, 
+            {
+                "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/blobs/bfa3c1469820a615b99945dc6025702cbf696153", 
+                "sha": "bfa3c1469820a615b99945dc6025702cbf696153", 
+                "mode": "100644", 
+                "path": "notebook.json", 
+                "type": "blob", 
+                "size": 44
+            }, 
+            {
+                "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/blobs/5dd2c640f6481057010fb9cd3a1ac6edaa2cc028", 
+                "sha": "5dd2c640f6481057010fb9cd3a1ac6edaa2cc028", 
+                "mode": "100644", 
+                "path": "post_condition.json", 
+                "type": "blob", 
+                "size": 80
+            }, 
+            {
+                "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/blobs/227f2876354fa8223c1ed43528e07cc53b201122", 
+                "sha": "227f2876354fa8223c1ed43528e07cc53b201122", 
+                "mode": "100644", 
+                "path": "precondition.json", 
+                "type": "blob", 
+                "size": 76
+            }
+        ], 
+        "sha": "a7f8a171377b0d27896ba2b321cdcab32eb464d8", 
+        "mode": "040000", 
+        "path": "node1", 
+        "type": "tree"
+    }, 
+    {
+        "truncated": false, 
+        "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/trees/171dfab4654d30d39f2529991202d164a086bc79", 
+        "tree": [
+            {
+                "truncated": false, 
+                "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/trees/19f4552d6301907080f37bba00c7abd7aa4a5670", 
+                "tree": [
+                    {
+                        "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/blobs/a2ec0e45f43a803be098271ba02fd48b0f205974", 
+                        "sha": "a2ec0e45f43a803be098271ba02fd48b0f205974", 
+                        "mode": "100644", 
+                        "path": "DKDataSink_NoOp.json", 
+                        "type": "blob", 
+                        "size": 74
+                    }
+                ], 
+                "sha": "19f4552d6301907080f37bba00c7abd7aa4a5670", 
+                "mode": "040000", 
+                "path": "data_sinks", 
+                "type": "tree"
+            }, 
+            {
+                "truncated": false, 
+                "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/trees/ac46d5e462f5f0f4d779c19f39b336225f588263", 
+                "tree": [
+                    {
+                        "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/blobs/6db462dbb68ce1e23f48ccd486eae3e9d0198da2", 
+                        "sha": "6db462dbb68ce1e23f48ccd486eae3e9d0198da2", 
+                        "mode": "100644", 
+                        "path": "DKDataSource_NoOp.json", 
+                        "type": "blob", 
+                        "size": 78
+                    }
+                ], 
+                "sha": "ac46d5e462f5f0f4d779c19f39b336225f588263", 
+                "mode": "040000", 
+                "path": "data_sources", 
+                "type": "tree"
+            }, 
+            {
+                "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/blobs/8f93fe65faafaae50157b890ce9be2eb26808a13", 
+                "sha": "8f93fe65faafaae50157b890ce9be2eb26808a13", 
+                "mode": "100644", 
+                "path": "description.json", 
+                "type": "blob", 
+                "size": 62
+            }, 
+            {
+                "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/blobs/bfa3c1469820a615b99945dc6025702cbf696153", 
+                "sha": "bfa3c1469820a615b99945dc6025702cbf696153", 
+                "mode": "100644", 
+                "path": "notebook.json", 
+                "type": "blob", 
+                "size": 44
+            }, 
+            {
+                "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/blobs/5dd2c640f6481057010fb9cd3a1ac6edaa2cc028", 
+                "sha": "5dd2c640f6481057010fb9cd3a1ac6edaa2cc028", 
+                "mode": "100644", 
+                "path": "post_condition.json", 
+                "type": "blob", 
+                "size": 80
+            }, 
+            {
+                "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/blobs/95df817be722b0fcd5da9e688a43cfe2467f9526", 
+                "sha": "95df817be722b0fcd5da9e688a43cfe2467f9526", 
+                "mode": "100644", 
+                "path": "precondition.json", 
+                "type": "blob", 
+                "size": 460
+            }
+        ], 
+        "sha": "171dfab4654d30d39f2529991202d164a086bc79", 
+        "mode": "040000", 
+        "path": "node2", 
+        "type": "tree"
+    }, 
+    {
+        "truncated": false, 
+        "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/trees/0804b0ce507675b5df74cb95ae3eb824a577f783", 
+        "tree": [
+            {
+                "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/blobs/3b545f271e4d42373927855409921fdbf8acbeb7", 
+                "sha": "3b545f271e4d42373927855409921fdbf8acbeb7", 
+                "mode": "100644", 
+                "path": "very_cool.sql", 
+                "type": "blob", 
+                "size": 40
+            }
+        ], 
+        "sha": "0804b0ce507675b5df74cb95ae3eb824a577f783", 
+        "mode": "040000", 
+        "path": "resources", 
+        "type": "tree"
+    }, 
+    {
+        "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/blobs/c0d0fb45c382919737f8d0c20aaf57cf89b74af8", 
+        "sha": "c0d0fb45c382919737f8d0c20aaf57cf89b74af8", 
+        "mode": "100644", 
+        "path": "simple-file.txt", 
+        "type": "blob", 
+        "size": 12
+    }, 
+    {
+        "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/blobs/5c077532b748050fc6f0c42f8a19f2f71229ee3a", 
+        "sha": "5c077532b748050fc6f0c42f8a19f2f71229ee3a", 
+        "mode": "100644", 
+        "path": "variables.json", 
+        "type": "blob", 
+        "size": 499
+    }, 
+    {
+        "url": "https://ghe.datakitchen.io/api/v3/repos/DataKitchen/DKCustomers/git/blobs/85418053bdd158de7455c82643af567a12787566", 
+        "sha": "85418053bdd158de7455c82643af567a12787566", 
+        "mode": "100644", 
+        "path": "variations.json", 
+        "type": "blob", 
+        "size": 2883
+    }
+]

@@ -1,0 +1,5 @@
+{
+    "nodes_to_use": "$nodestouse", 
+    "test_data": "A simple test recipe", 
+    "edges_to_use": "$edgestouse"
+}

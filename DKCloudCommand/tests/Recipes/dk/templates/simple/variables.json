@@ -1,0 +1,21 @@
+{
+  "name": "test1 variables",
+  "variable-list": {
+    "nodestouse": {
+      "string-replace-key": "nodestouse",
+      "string-replace-value": "nodes"
+    },
+    "edgestouse": {
+      "string-replace-key": "edgestouse",
+      "string-replace-value": "edges"
+    },
+    "dsmalldelay": {
+      "string-replace-key": "dsmalldelay",
+      "string-replace-value": "0"
+    },
+    "email": {
+      "string-replace-key": "email",
+      "string-replace-value": "success@simulator.amazonses.com"
+    }
+  }
+}

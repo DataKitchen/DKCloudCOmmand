@@ -1,0 +1,90 @@
+{
+  "active-variation": "simple-variation-now",
+  "environment-setting-list": {
+    "production-05": {
+      "directory-name": "/home/ubuntu/DKCustomers/dk/runs",
+      "git-url": "needed-to-run-but-not-used",
+      "boto-config": "/root/.boto",
+      "servingbook-collection": "TestRecipeBook",
+      "recipe-run-method": "parallel",
+      "recipe-run-collection": "TestRecipeRun",
+      "git-branch": "master",
+      "recipe-git-path": "DKCustomers/dk/templates/simple",
+      "port": "8898"
+    },
+    "test-environment": {
+            "directory-name": "/dk/DKCustomers/dk/runs",
+            "git-url": "git@github.com-DKCustomers:DataKitchen/DKCustomers.git",
+            "boto-config": "/config/boto.cfg",
+            "servingbook-collection": "ChrisServingBook",
+            "recipe-run-method": "parallel",
+            "recipe-run-collection": "ChrisRecipeRun",
+            "git-branch": "master",
+            "recipe-git-path": "DKCustomers/dk/templates/parallel-recipe-test",
+            "port": "8888"
+    }
+  },
+  "override-setting-list": {
+    "simple-overrides": {
+      "dsmalldelay": {
+        "string-replace-key": "dsmalldelay",
+        "string-replace-value": "0"
+      }
+    },
+    "simple-1min-overrides": {
+      "dsmalldelay": {
+        "string-replace-key": "dsmalldelay",
+        "string-replace-value": ".1"
+      }
+    },
+    "simple-2sec-overrides": {
+      "dsmalldelay": {
+        "string-replace-key": "dsmalldelay",
+        "string-replace-value": ".01"
+      }
+    },
+    "simple-10min-overrides": {
+      "dsmalldelay": {
+        "string-replace-key": "dsmalldelay",
+        "string-replace-value": "600"
+      }
+    }
+  },
+  "variation-list": {
+    "simple-variation-now": {
+      "environment-setting": "production-05",
+      "mesos-setting": "simple-mesos",
+      "override-setting": "simple-overrides"
+    },
+    "simple-variation-now-vagrant": {
+      "environment-setting": "test-environment",
+      "mesos-setting": "simple-mesos",
+      "override-setting": "simple-overrides"
+    },
+    "simple-2sec-variation-now": {
+      "environment-setting": "production-05",
+      "mesos-setting": "simple-mesos",
+      "override-setting": "simple-2sec-overrides"
+    },
+    "simple-1min-variation-now": {
+      "environment-setting": "production-05",
+      "mesos-setting": "simple-mesos",
+      "override-setting": "simple-1min-overrides"
+    },
+    "simple-10min-variation-now": {
+      "environment-setting": "production-05",
+      "mesos-setting": "simple-mesos",
+      "override-setting": "simple-10min-overrides"
+    }  },
+  "mesos-setting-list": {
+    "simple-mesos": {
+      "name": "now",
+      "schedule": "now",
+      "epsilon": "PT5D",
+      "mesos-url": "http://localhost:5050",
+      "owner": "prod@datakitchen.io",
+      "async": "false",
+      "s3-script": "https://s3.amazonaws.com/mesos-scripts/generic_run_recipe_v2.sh"
+    }
+  }
+}

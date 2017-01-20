@@ -1,0 +1,13 @@
+*.py[cod]
+
+ams_logger.log
+my_unitest_guid.txt
+ignore
+my_test_kitchen_list_by_exec_command.py
+
+# Ignore temp files
+*tmp*
+*.secret
+*hide
+DKCCC*
+.coverage

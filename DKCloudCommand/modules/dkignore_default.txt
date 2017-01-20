@@ -1,0 +1,5 @@
+# Works like .gitignore
+# Use '#' for comments.
+# Eventually we might allow a .dkignore to be added to the repo.
+# Right now, only items in this file are ignored.
+.DS_Store

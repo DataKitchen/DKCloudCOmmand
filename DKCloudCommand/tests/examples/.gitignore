@@ -1,0 +1,5 @@
+# This will ignore subdirectories, but not files in this folder
+*/*
+*.conf
+*.config
+*.zip
