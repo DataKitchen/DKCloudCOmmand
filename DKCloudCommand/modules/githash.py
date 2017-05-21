@@ -2,7 +2,7 @@
 
 from sys import argv
 from hashlib import sha1
-from cStringIO import StringIO
+from io import StringIO
 
 class githash(object):
     def __init__(self):
@@ -33,4 +33,4 @@ def githash_fileobj(fileobj):
 if __name__ == '__main__':
     for filename in argv[1:]:
         fileobj = file(filename)
-        print(githash_fileobj(fileobj))
+        print((githash_fileobj(fileobj)))

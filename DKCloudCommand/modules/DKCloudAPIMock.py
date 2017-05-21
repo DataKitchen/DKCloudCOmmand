@@ -1,7 +1,7 @@
-from DKCloudAPI import DKCloudAPI
+from .DKCloudAPI import DKCloudAPI
 __author__ = 'DataKitchen, Inc.'
 
-from DKReturnCode import DKReturnCode
+from .DKReturnCode import DKReturnCode
 import pickle
 
 class DKCloudAPIMock(DKCloudAPI):

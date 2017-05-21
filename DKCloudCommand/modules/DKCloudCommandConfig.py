@@ -99,7 +99,7 @@ class DKCloudCommandConfig(object):
     def init_from_string(self, jstr):
         try:
             self._config_dict = json.loads(jstr)
-        except ValueError, e:
+        except ValueError as e:
             return False
         return self.validate_config()
 
@@ -123,8 +123,8 @@ class DKCloudCommandConfig(object):
                     with open(full_path) as data_file:
                         try:
                             self._config_dict = json.load(data_file)
-                        except ValueError, e:
-                            print('DKCloudCommandConfig: failed json.load check syntax %s. %s' % (full_path, e))
+                        except ValueError as e:
+                            print(('DKCloudCommandConfig: failed json.load check syntax %s. %s' % (full_path, e)))
                             rv = False
                         else:
                             rv = True
@@ -152,8 +152,8 @@ class DKCloudCommandConfig(object):
             try:
                 f = open(file_location, 'w')
                 json.dump(self._config_dict, f, sort_keys=True, indent=4)
-            except ValueError, e:
-                print('DKCloudCommandConfig: failed json.dump %s.' % e)
+            except ValueError as e:
+                print(('DKCloudCommandConfig: failed json.dump %s.' % e))
                 return False
             else:
                 return True
@@ -161,6 +161,6 @@ class DKCloudCommandConfig(object):
     def validate_config(self):
         for v in self._required_config_attributes:
             if v not in self._config_dict:
-                print("DKCloudCommandConfig: failed to find %s in DKCloudCommandConfig.json" % v)
+                print(("DKCloudCommandConfig: failed to find %s in DKCloudCommandConfig.json" % v))
                 return False
         return True

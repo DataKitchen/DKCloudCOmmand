@@ -2,11 +2,11 @@ import os
 import json
 import filecmp
 import glob
-from githash import *
+from .githash import *
 import re
 import glob
-from DKKitchenDisk import DKKitchenDisk
-from DKIgnore import DKIgnore
+from .DKKitchenDisk import DKKitchenDisk
+from .DKIgnore import DKIgnore
 
 # import os.path
 
@@ -52,7 +52,7 @@ class DKRecipeDisk:
             if not self.write_recipe_meta(root_dir):
                 return None
 
-        for recipe_file_key, files_list in recipe_dict.iteritems():
+        for recipe_file_key, files_list in recipe_dict.items():
             if len(recipe_file_key) > 0:
                 full_dir = os.path.join(root_dir, recipe_file_key)
             else:
@@ -73,16 +73,16 @@ class DKRecipeDisk:
 
     def write_recipe_meta(self, start_dir):
         if not DKKitchenDisk.is_kitchen_root_dir(start_dir):
-            print "'%s' is not a Kitchen directory" % start_dir
+            print("'%s' is not a Kitchen directory" % start_dir)
             return False
 
         kitchen_meta_dir = DKKitchenDisk.find_kitchen_meta_dir(start_dir)
         if kitchen_meta_dir is None:
-            print "Unable to find kitchen meta directory in '%s'" % start_dir
+            print("Unable to find kitchen meta directory in '%s'" % start_dir)
             return False
         recipes_meta_dir = DKKitchenDisk.get_recipes_meta_dir(kitchen_meta_dir)
         if recipes_meta_dir is None:
-            print "Unable to find recipes meta directory in '%s'" % start_dir
+            print("Unable to find recipes meta directory in '%s'" % start_dir)
             return False
 
         recipe_meta_dir = os.path.join(recipes_meta_dir, self._recipe_name)
@@ -90,14 +90,14 @@ class DKRecipeDisk:
             try:
                 os.makedirs(recipe_meta_dir)
             except OSError as e:
-                print "%s - %s - %s" % (e.filename, e.errno, e.message)
+                print("%s - %s - %s" % (e.filename, e.errno, e.message))
                 return False
         recipes_meta_file = os.path.join(recipe_meta_dir, RECIPE_META)
         try:
             with open(recipes_meta_file, 'w') as f:
                 f.write(self._recipe_name)
         except OSError as e:
-            print "%s - %s - %s" % (e.filename, e.errno, e.message)
+            print("%s - %s - %s" % (e.filename, e.errno, e.message))
             return False
 
         orig_head_file = os.path.join(recipe_meta_dir, ORIG_HEAD)
@@ -105,7 +105,7 @@ class DKRecipeDisk:
             with open(orig_head_file, 'w') as f:
                 f.write(self._recipe_sha)
         except OSError as e:
-            print "%s - %s - %s" % (e.filename, e.errno, e.message)
+            print("%s - %s - %s" % (e.filename, e.errno, e.message))
             return False
         return True
 
@@ -123,7 +123,7 @@ class DKRecipeDisk:
             with open(orig_head, 'r') as f:
                 orig_head = f.read()
         except OSError as e:
-            print "%s - %s - %s" % (e.filename, e.errno, e.message)
+            print("%s - %s - %s" % (e.filename, e.errno, e.message))
             return None
         return orig_head
 
@@ -166,8 +166,8 @@ class DKRecipeDisk:
     def get_unresolved_conflicts_meta(recipe_meta_dir, from_kitchen=None, to_kitchen=None):
         conflicts = DKRecipeDisk.get_conflicts_meta(recipe_meta_dir)
         unresolved_conflicts = {}
-        for recipe_folder, folder_conflicts in conflicts.iteritems():
-            for conflict_key, conflict_info in folder_conflicts.iteritems():
+        for recipe_folder, folder_conflicts in conflicts.items():
+            for conflict_key, conflict_info in folder_conflicts.items():
                 if conflict_info['status'] == 'unresolved':
                     add_it = True
                     if from_kitchen is not None and to_kitchen is not None:
@@ -183,8 +183,8 @@ class DKRecipeDisk:
     def get_resolved_conflicts_meta(recipe_meta_dir, from_kitchen=None, to_kitchen=None):
         conflicts = DKRecipeDisk.get_conflicts_meta(recipe_meta_dir)
         resolved_conflicts = {}
-        for recipe_folder, folder_conflicts in conflicts.iteritems():
-            for conflict_key, conflict_info in folder_conflicts.iteritems():
+        for recipe_folder, folder_conflicts in conflicts.items():
+            for conflict_key, conflict_info in folder_conflicts.items():
                 if conflict_info['status'] == 'resolved':
                     add_it = True
                     if from_kitchen is not None and to_kitchen is not None:
@@ -195,8 +195,8 @@ class DKRecipeDisk:
                             resolved_conflicts[recipe_folder] = {}
                         resolved_conflicts[recipe_folder][conflict_key] = conflict_info
                     else:
-                        print "Found a resolved conflict for from '%s' to '%s', but we are looking for from '%s' to '%s'" % (
-                            conflict_info['from_kitchen'], conflict_info['to_kitchen'], from_kitchen, to_kitchen)
+                        print("Found a resolved conflict for from '%s' to '%s', but we are looking for from '%s' to '%s'" % (
+                            conflict_info['from_kitchen'], conflict_info['to_kitchen'], from_kitchen, to_kitchen))
         return resolved_conflicts
 
     @staticmethod
@@ -206,8 +206,8 @@ class DKRecipeDisk:
         local_path_in_recipe = norm_file_path.replace(recipe_root_dir, '')
         local_path_in_recipe = re.sub("^" + os.sep + "|/$", "", local_path_in_recipe)
         recipe_name = DKRecipeDisk.find_recipe_name(recipe_root_dir)
-        for recipe_folder, folder_contents in all_conflicts.iteritems():
-            for conflict_key, conflict_info in folder_contents.iteritems():
+        for recipe_folder, folder_contents in all_conflicts.items():
+            for conflict_key, conflict_info in folder_contents.items():
                 if conflict_info['status'] == 'unresolved':
                     path_in_recipe = os.path.join(conflict_info['folder_in_recipe'], conflict_info['filename'])
                     path_in_recipe = re.sub(r'%s/' % recipe_name, r'', path_in_recipe)
@@ -252,12 +252,12 @@ class DKRecipeDisk:
 
         kitchen_meta_dir = DKKitchenDisk.find_kitchen_meta_dir(recipe_root_dir)
         if kitchen_meta_dir is None:
-            print "Unable to find kitchen meta directory in '%s'" % check_dir
+            print("Unable to find kitchen meta directory in '%s'" % check_dir)
             return False
 
         recipes_meta_dir = DKKitchenDisk.get_recipes_meta_dir(kitchen_meta_dir)
         if recipes_meta_dir is None:
-            print "Unable to find recipes meta directory in '%s'" % check_dir
+            print("Unable to find recipes meta directory in '%s'" % check_dir)
             return False
 
         recipe_meta_dir = os.path.join(recipes_meta_dir, recipe_name)
@@ -389,8 +389,7 @@ def compare_sha(remote_sha, local_sha):
     for remote_path in remote_sha:
         if remote_path in local_sha:
             for remote_file in remote_sha[remote_path]:
-                local_files_found = filter(lambda local_file: local_file['filename'] == remote_file['filename'],
-                                           local_sha[remote_path])
+                local_files_found = [local_file for local_file in local_sha[remote_path] if local_file['filename'] == remote_file['filename']]
                 if len(local_files_found) != 0:
                     if local_files_found[0]['sha'] == remote_file['sha']:
                         # print '%s matches' % remote_file['filename']
@@ -416,7 +415,7 @@ def compare_sha(remote_sha, local_sha):
                 only_remote[remote_path] = list()
 
     ignore = DKIgnore()
-    for local_path, local_files in local_sha.iteritems():
+    for local_path, local_files in local_sha.items():
         if ignore.ignore(local_path):
             # Ignore some stuff.
             # print '%s ignoring' % local_path
@@ -429,8 +428,7 @@ def compare_sha(remote_sha, local_sha):
                 elif ignore.ignore(os.path.join(local_path, local_file['filename'])):
                     # print '%s ignoring' % os.path.join(local_path, local_file['filename'])
                     continue
-                remote_files_found = filter(lambda remote_file: remote_file['filename'] == local_file['filename'],
-                                            remote_sha[local_path])
+                remote_files_found = [remote_file for remote_file in remote_sha[local_path] if remote_file['filename'] == local_file['filename']]
                 if len(remote_files_found) > 1:
                     # print 'compare_sha: Unexpected return in remote_path'
                     raise

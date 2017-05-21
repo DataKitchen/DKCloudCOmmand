@@ -3,7 +3,7 @@ from sys import path
 import json
 import os, tempfile
 import uuid
-from DKCommonUnitTestSettings import DKCommonUnitTestSettings
+from .DKCommonUnitTestSettings import DKCommonUnitTestSettings
 from DKActiveServingWatcher import DKActiveServingWatcherSingleton
 
 #if '../../' not in path:
@@ -72,7 +72,7 @@ class BaseTestCloud(DKCommonUnitTestSettings):
         time.sleep(3)
 
     def setUp(self):
-        print '%s.%s - setUp' % (self.__class__.__name__,self._testMethodName)
+        print('%s.%s - setUp' % (self.__class__.__name__,self._testMethodName))
         self.startup_server()
 
         self._start_dir = os.getcwd()  # save directory
@@ -156,7 +156,7 @@ class BaseTestCloud(DKCommonUnitTestSettings):
     def _get_run_variation(self):
         if 'cloud.datakitchen.io' in self._cr_config.get_ip():
             variation_name = 'variation-test-production05'
-            print 'Running production recipe.'
+            print('Running production recipe.')
         else:
             variation_name = 'variation-test'
         return variation_name
@@ -168,7 +168,7 @@ class BaseTestCloud(DKCommonUnitTestSettings):
                     variation_name = 'variation-test-production05-repeat'
                 else:
                     variation_name = 'variation-test-production05-now'
-                print 'Running production recipe.'
+                print('Running production recipe.')
             else:
                 if repeater is True:
                     variation_name = 'variation-test-repeat'
@@ -178,21 +178,21 @@ class BaseTestCloud(DKCommonUnitTestSettings):
         elif recipe_name == 'simple':
             if 'cloud.datakitchen.io' in self._cr_config.get_ip():
                 variation_name = 'simple-variation-now'
-                print 'Running production recipe.'
+                print('Running production recipe.')
             else:
                 variation_name = 'simple-variation-now-vagrant'
             return variation_name
         elif recipe_name == 'test-everything-recipe':
             if 'cloud.datakitchen.io' in self._cr_config.get_ip():
                 variation_name = 'variation-morning-prod05'
-                print 'Running production recipe.'
+                print('Running production recipe.')
             else:
                 variation_name = 'variation-morning-vagrant'
             return variation_name
 
     def _get_the_dict(self, t):
         self.assertIsNotNone(t)
-        self.assertTrue(isinstance(t, basestring))
+        self.assertTrue(isinstance(t, str))
         try:
             rd = json.loads(t)
         except ValueError:

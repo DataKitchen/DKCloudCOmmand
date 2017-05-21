@@ -1,8 +1,8 @@
 from threading import Thread
 import time
 from sys import stdout
-from DKCloudAPI import DKCloudAPI
-from DKReturnCode import *
+from .DKCloudAPI import DKCloudAPI
+from .DKReturnCode import *
 DK_ACTIVE_SERVING_WATCHER_SLEEP_TIME = 5
 
 
@@ -52,7 +52,7 @@ class DKActiveServingWatcherSingleton(object):
 # Only one watcher runs  ... run and done.
 def make_watcher_thread(watcher, *args):
     if watcher is None or isinstance(watcher, DKActiveServingWatcher) is False:
-        print 'make_watcher_thread bad watcher'
+        print('make_watcher_thread bad watcher')
         return
     #print 'Starting watcher make thread'
     while DKActiveServingWatcherSingleton().should_run() is True:
@@ -81,26 +81,26 @@ class DKActiveServingWatcher(object):
 
     def start_watcher(self):
         if self._api is None or self._kitchen_name is None:
-            print 'DKActiveServingWatcher: start_making_watcher failed requires api and kitchen name'
+            print('DKActiveServingWatcher: start_making_watcher failed requires api and kitchen name')
             return False
         try:
             self.run_thread = Thread(target=make_watcher_thread, args=(self, 1), name='DKActiveServingWatcher')
             self.run_thread.start()
-        except Exception, e:
-            print 'DKActiveServingWatcher: start_making_watcher exception %s' % e
+        except Exception as e:
+            print('DKActiveServingWatcher: start_making_watcher exception %s' % e)
             return False
         return True
 
     def wait_until_watcher_complete(self):
         try:
             self.run_thread.join()
-        except Exception, e:
-            print 'DKActiveServingWatcher: wait_until_watcher_complete exception %s' % e
+        except Exception as e:
+            print('DKActiveServingWatcher: wait_until_watcher_complete exception %s' % e)
             return False
 
     def watch(self):
         cache = DKActiveServingCache().get_cache()
-        print 'watching ...'
+        print('watching ...')
         rc = self._api.orderrun_detail(self._kitchen_name, {'summary': True})
         if rc.ok() and rc.get_payload() is not None:
             payload = rc.get_payload()
@@ -137,16 +137,16 @@ class DKActiveServingWatcher(object):
         pre = cache['previous']
         nodes = list()
         found_change = False
-        for item, val in cur.iteritems():
+        for item, val in cur.items():
             if isinstance(val, dict):
                 nodes.append(item)
             else:
                 if cur[item] != pre[item] and item != 'hid':
-                    print '%s(%s..) %s:  %s' % (cur['name'], cur['hid'][:5], item, val)
+                    print('%s(%s..) %s:  %s' % (cur['name'], cur['hid'][:5], item, val))
                     found_change = True
                 else:
                     if trace is True:
-                        print 'Trace: %s(%s..) %s:  %s' % (cur['name'], cur['hid'][:5], item, val)
+                        print('Trace: %s(%s..) %s:  %s' % (cur['name'], cur['hid'][:5], item, val))
         for node_name in nodes:
             if DKActiveServingWatcher._print_node_changes(cur['name'], cur['hid'][:5], cur[node_name], pre[node_name],
                                                           node_name, trace) is True:
@@ -174,7 +174,7 @@ class DKActiveServingWatcher(object):
     def _print_node_changes(rname, hid, cur, pre, item_print_string, trace=False):
         found_change = False
         if isinstance(cur, dict) and isinstance(pre, dict):
-            for item, val in cur.iteritems():
+            for item, val in cur.items():
                 new_item_print_string = '%s: %s' % (item_print_string, item)
                 if isinstance(val, dict):
                     if DKActiveServingWatcher._print_node_changes(rname, hid, cur[item], pre[item],
@@ -182,13 +182,13 @@ class DKActiveServingWatcher(object):
                         found_change = True
                 else:
                     if cur[item] != pre[item]:
-                        print '%s(%s..) %s: %s:  %s' % (rname, hid, item_print_string, item, cur[item])
+                        print('%s(%s..) %s: %s:  %s' % (rname, hid, item_print_string, item, cur[item]))
                         found_change = True
                     else:
                         if trace is True:
-                            print 'Trace: %s(%s..) %s: %s:  %s' % (rname, hid, item_print_string, item, cur[item])
+                            print('Trace: %s(%s..) %s: %s:  %s' % (rname, hid, item_print_string, item, cur[item]))
         else:
-            print 'cur and pre fucked up (%s) (%s)' % (cur, pre)
+            print('cur and pre fucked up (%s) (%s)' % (cur, pre))
         return found_change
 
 

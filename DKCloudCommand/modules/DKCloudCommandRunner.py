@@ -2,13 +2,13 @@ import os
 import json
 import base64
 import zlib
-from DKCloudAPI import DKCloudAPI
-from DKRecipeDisk import DKRecipeDisk
-from DKKitchenDisk import DKKitchenDisk
-from DKReturnCode import *
-from DKIgnore import DKIgnore
-from DKActiveServingWatcher import DKActiveServingWatcherSingleton
-from DKActiveServingWatcher import DKActiveServingWatcher
+from .DKCloudAPI import DKCloudAPI
+from .DKRecipeDisk import DKRecipeDisk
+from .DKKitchenDisk import DKKitchenDisk
+from .DKReturnCode import *
+from .DKIgnore import DKIgnore
+from .DKActiveServingWatcher import DKActiveServingWatcherSingleton
+from .DKActiveServingWatcher import DKActiveServingWatcher
 import jwt
 import sys
 import pprint
@@ -169,7 +169,7 @@ class DKCloudCommandRunner(object):
 
         lkrc = dk_api.list_kitchen()
         kl = lkrc.get_payload()
-        found_kitchens = filter(lambda found_kitchen: found_kitchen['name'] == kitchen_name, kl)
+        found_kitchens = [found_kitchen for found_kitchen in kl if found_kitchen['name'] == kitchen_name]
         if len(found_kitchens) > 1:
             rc.set(rc.DK_FAIL, "ERROR: Found multiple kitchens named '%s'" % kitchen_name)
             return rc
@@ -414,7 +414,7 @@ class DKCloudCommandRunner(object):
             if 'only_remote' in rl and len(rl['only_remote']) > 0:
                 folders_stripped = list()
                 files_stripped = list()
-                for remote_path, remote_files in rl['only_remote'].iteritems():
+                for remote_path, remote_files in rl['only_remote'].items():
                     parts = remote_path.partition(os.sep)
                     if len(remote_files) == 0:
                         folders_stripped.append(parts[2])
@@ -424,7 +424,7 @@ class DKCloudCommandRunner(object):
 
                 minimal_paths = DKCloudCommandRunner.find_minimal_paths_to_get(folders_stripped)
                 paths_to_get = []
-                for path, is_path in minimal_paths.iteritems():
+                for path, is_path in minimal_paths.items():
                     paths_to_get.append(os.path.join(path, '*'))
                 paths_to_get.extend(files_stripped)
                 only_remote_files_rc = dk_api.get_recipe(kitchen, recipe_name_param, paths_to_get)
@@ -457,7 +457,7 @@ class DKCloudCommandRunner(object):
                 remote_only_file_count = 0
                 remote_only_files = list()
                 for recipe_folder_name, recipe_folder_contents in remote_only_recipe_tree['recipes'][
-                        recipe_name_param].iteritems():
+                        recipe_name_param].items():
                     for remote_only_file in recipe_folder_contents:
                         remote_only_file_count += 1
                         remote_only_files.append(
@@ -478,7 +478,7 @@ class DKCloudCommandRunner(object):
 
                 merged_file_count = 0
                 conflicted_file_count = 0
-                for merged_folder, folder_contents in merged_different_files.iteritems():
+                for merged_folder, folder_contents in merged_different_files.items():
                     for merged_file in folder_contents:
                         # conflict_key = '%s|%s|%s|%s|%s' % (
                         # conflict_info['from_kitchen'], conflict_info['to_kitchen'], recipe_name,
@@ -551,7 +551,7 @@ class DKCloudCommandRunner(object):
         parts = []
         while True:
             newpath, tail = os.path.split(path)
-            if debug: print repr(path), (newpath, tail)
+            if debug: print(repr(path), (newpath, tail))
             if newpath == path:
                 assert not tail
                 if path: parts.append(path)
@@ -591,7 +591,7 @@ class DKCloudCommandRunner(object):
     def _merge_files(dk_api, kitchen_name, recipe_name, recipe_path, differences):
         merged_files = dict()
         status = True
-        for folder_name, folder_contents in differences.iteritems():
+        for folder_name, folder_contents in differences.items():
             for this_file in folder_contents:
 
                 rc = DKCloudCommandRunner._merge_file(dk_api, kitchen_name, recipe_name, recipe_path, folder_name,
@@ -621,7 +621,7 @@ class DKCloudCommandRunner(object):
             with open(os.path.join(kitchen_root_dir, folder_name, file_info['filename']), 'r') as f:
                 local_contents = f.read()
         except OSError as e:
-            print "%s - %s - %s" % (e.filename, e.errno, e.message)
+            print("%s - %s - %s" % (e.filename, e.errno, e.message))
             return None
 
         file_path_without_recipe = os.path.join(os.sep.join(folder_name.split(os.sep)[1:]), file_info['filename'])
@@ -672,13 +672,13 @@ class DKCloudCommandRunner(object):
             rl = rc.get_payload()
             same_file_count = 0
             if len(rl['same']) > 0:
-                for folder_name, folder_contents in rl['same'].iteritems():
+                for folder_name, folder_contents in rl['same'].items():
                     same_file_count += len(folder_contents)
 
             modified_file_names = list()
             modified_file_count = 0
             if len(rl['different']) > 0:
-                for folder_name, folder_contents in rl['different'].iteritems():
+                for folder_name, folder_contents in rl['different'].items():
                     for this_file in folder_contents:
                         modified_file_names.append(
                             '\t' + os.path.join(os.sep.join(folder_name.split(os.sep)[1:]), this_file['filename']))
@@ -689,7 +689,7 @@ class DKCloudCommandRunner(object):
             local_folder_names = list()
             local_folder_count = 0
             if len(rl['only_local']) > 0:
-                for folder_name, folder_contents in rl['only_local'].iteritems():
+                for folder_name, folder_contents in rl['only_local'].items():
                     if len(folder_contents) > 0:
                         for this_file in folder_contents:
                             local_file_names.append(
@@ -705,7 +705,7 @@ class DKCloudCommandRunner(object):
             remote_folder_count = 0
             remote_folder_names = list()
             if len(rl['only_remote']) > 0:
-                for folder_name, folder_contents in rl['only_remote'].iteritems():
+                for folder_name, folder_contents in rl['only_remote'].items():
                     if len(folder_contents) > 0:
                         for this_file in folder_contents:
                             remote_file_names.append(
@@ -816,7 +816,7 @@ class DKCloudCommandRunner(object):
         ig = DKIgnore()
         files_to_delete = list()
         folders_to_delete = list()
-        for folder_path, folder_contents in deleted_files.iteritems():
+        for folder_path, folder_contents in deleted_files.items():
             if ig.ignore(folder_path):
                 continue
             if len(folder_contents) == 0:
@@ -885,7 +885,7 @@ class DKCloudCommandRunner(object):
         ig = DKIgnore()
 
         files_to_add = list()
-        for folder_path, folder_contents in new_files.iteritems():
+        for folder_path, folder_contents in new_files.items():
             folder_path_wo_recipe = os.sep.join(folder_path.split(os.sep)[1:])
             if ig.ignore(folder_path):
                 continue
@@ -931,7 +931,7 @@ class DKCloudCommandRunner(object):
         ig = DKIgnore()
         updated_file_count = 0
         tabbed_file_names = list()
-        for folder_path, folder_contents in changed_files.iteritems():
+        for folder_path, folder_contents in changed_files.items():
             if ig.ignore(folder_path):
                 continue
             if len(folder_contents) == 0:
@@ -982,7 +982,7 @@ class DKCloudCommandRunner(object):
             return rc
 
         # Take a simple string or an array
-        if isinstance(files_to_update_param, basestring):
+        if isinstance(files_to_update_param, str):
             files_to_update = [files_to_update_param]
         else:
             files_to_update = files_to_update_param
@@ -1082,7 +1082,7 @@ class DKCloudCommandRunner(object):
             return rc
 
         # Take a simple string or an array
-        if isinstance(files_to_delete_param, basestring):
+        if isinstance(files_to_delete_param, str):
             files_to_delete = [files_to_delete_param]
         else:
             files_to_delete = files_to_delete_param
@@ -1109,7 +1109,7 @@ class DKCloudCommandRunner(object):
         :param period: integer
         :rtype: string
         """
-        print 'period', period
+        print('period', period)
 
         # try:
         #     p = int(period)
@@ -1131,8 +1131,8 @@ class DKCloudCommandRunner(object):
         if DKActiveServingWatcherSingleton().get_watcher().get_run_thread() is not None:
             try:
                 DKActiveServingWatcherSingleton().get_watcher().get_run_thread().join(1)
-            except Exception, e:
-                print 'join_active_serving_watcher_thread_join %s' % str(e)
+            except Exception as e:
+                print('join_active_serving_watcher_thread_join %s' % str(e))
 
     @staticmethod
     def stop_watcher():
@@ -1189,11 +1189,11 @@ class DKCloudCommandRunner(object):
     @staticmethod
     def _print_unresolved_conflicts(unresolved_conflicts):
         msg = 'There are unresolved conflicts\n'
-        for recipe_name, recipe_conflicts in unresolved_conflicts.iteritems():
+        for recipe_name, recipe_conflicts in unresolved_conflicts.items():
             if len(recipe_conflicts) != 0:
                 msg += "\tUnresolved conflicts for recipe '%s'\n" % recipe_name
-            for recipe_folder, folder_contents in recipe_conflicts.iteritems():
-                for conflict_key, conflict_info in folder_contents.iteritems():
+            for recipe_folder, folder_contents in recipe_conflicts.items():
+                for conflict_key, conflict_info in folder_contents.items():
                     msg += '\t\t%s/%s\n' % (conflict_info['folder_in_recipe'], conflict_info['filename'])
         return msg
 
@@ -1264,7 +1264,7 @@ class DKCloudCommandRunner(object):
                    "DKCloudCommandRunner.write_recipe_merge_conflicts: Can't find conflicts for recipe %s." % recipe_name_param)
             return rc
         recipe_conflicts = merge_info['conflicts'][recipe_name_param]
-        for folder_name, folder_contents in recipe_conflicts.iteritems():
+        for folder_name, folder_contents in recipe_conflicts.items():
             folder_fullpath = os.path.join(kitchen_dir, folder_name)
             for conflict in folder_contents:
                 file_fullpath = os.path.join(folder_fullpath, conflict['filename'])
@@ -1331,8 +1331,8 @@ class DKCloudCommandRunner(object):
             conflicts = payload['merge-kitchen-result']['merge_info']['conflicts']
             msg = ''
             file_count = 0
-            for recipe_name, recipe_folders in conflicts.iteritems():
-                for recipe_folder_name, recipe_folder in recipe_folders.iteritems():
+            for recipe_name, recipe_folders in conflicts.items():
+                for recipe_folder_name, recipe_folder in recipe_folders.items():
                     msg += "\tConflicted files in recipe '%s'\n" % recipe_folder_name
                     for this_file in recipe_folder:
                         msg += "\t\t%s\n" % os.path.join(recipe_folder_name, this_file['filename'])
@@ -1365,8 +1365,8 @@ class DKCloudCommandRunner(object):
         x.align["number_of_changes"] = "r"
         x.align["changes_viz"] = "l"
         x.left_padding_width = 1
-        for recipe_name, recipe_folders in merge_info['recipes'].iteritems():
-            for folder_name, files_in_folder in recipe_folders.iteritems():
+        for recipe_name, recipe_folders in merge_info['recipes'].items():
+            for folder_name, files_in_folder in recipe_folders.items():
                 for this_file in files_in_folder:
                     row = [this_file['filename'], this_file['changes'],
                            '%s%s' % ('+' * int(this_file['additions']), '-' * int(this_file['deletions']))]
@@ -1546,7 +1546,7 @@ class DKCloudCommandRunner(object):
 
             if summary and 'start-time' in summary:
                 start_time = summary['start-time']
-                if isinstance(start_time, basestring):
+                if isinstance(start_time, str):
                     s += 'Start time:\t%s\n' % summary['start-time'].split('.')[0]
                 else:
                     s += 'Start time:\t%s\n' % 'Not available 1'
@@ -1556,21 +1556,21 @@ class DKCloudCommandRunner(object):
             run_time = None
             if summary and 'total-recipe-time' in summary:
                 run_time = summary['total-recipe-time']
-            if isinstance(run_time, basestring):  # Active recipes don't have a run-duration
+            if isinstance(run_time, str):  # Active recipes don't have a run-duration
                 s += 'Run duration:\t%s (H:M:S)\n' % run_time.split('.')[0]
             else:
                 s += 'Run duration:\t%s\n' % 'Not available'
 
         if serving and DKCloudCommandRunner.TESTRESULTS in serving and \
-                isinstance(serving[DKCloudCommandRunner.TESTRESULTS], basestring):
+                isinstance(serving[DKCloudCommandRunner.TESTRESULTS], str):
             s += '\nTEST RESULTS'
             s += serving[DKCloudCommandRunner.TESTRESULTS]
         if serving and DKCloudCommandRunner.TIMINGRESULTS in serving and \
-                isinstance(serving[DKCloudCommandRunner.TIMINGRESULTS], basestring):
+                isinstance(serving[DKCloudCommandRunner.TIMINGRESULTS], str):
             s += '\n\nTIMING RESULTS\n\n'
             s += serving[DKCloudCommandRunner.TIMINGRESULTS]
         if serving and DKCloudCommandRunner.LOGS in serving and \
-                isinstance(serving[DKCloudCommandRunner.LOGS], basestring):
+                isinstance(serving[DKCloudCommandRunner.LOGS], str):
             s += '\n\nLOG\n\n'
             s += DKCloudCommandRunner._decompress(serving[DKCloudCommandRunner.LOGS])
         if 'status' in pd and serving and DKCloudCommandRunner.SUMMARY in serving and \
@@ -1709,7 +1709,7 @@ class DKCloudCommandRunner(object):
             
         if serving and 'timings' in serving and 'start-time' in serving['timings']:
             start_time = serving['timings']['start-time']
-            if isinstance(start_time, basestring):
+            if isinstance(start_time, str):
                 s += '\tStart time:\t%s\n' % start_time.split('.')[0]
             else:
                 s += '\tStart time:\t%s\n' % 'Not available 1'
@@ -1718,7 +1718,7 @@ class DKCloudCommandRunner(object):
 
         if serving and 'timings' in serving and 'end-time' in serving['timings']:
             end_time = serving['timings']['end-time']
-            if isinstance(end_time, basestring):
+            if isinstance(end_time, str):
                 s += '\tEnd time:\t%s\n' % end_time.split('.')[0]
             else:
                 s += '\tEnd time:\t%s\n' % 'Not available'
@@ -1727,7 +1727,7 @@ class DKCloudCommandRunner(object):
 
         if serving and 'timings' in serving and 'duration' in serving['timings']:
             duration = serving['timings']['duration']
-            if isinstance(duration, basestring):
+            if isinstance(duration, str):
                 s += '\tDuration:\t%s (H:M:S)\n' % duration.split('.')[0]
             else:
                 s += '\tDuration:\t%s\n' % 'Not available'
@@ -1846,14 +1846,14 @@ class DKCloudCommandRunner(object):
 
     @staticmethod
     def _compress(the_input):
-        if isinstance(the_input, basestring):
+        if isinstance(the_input, str):
             return base64.b64encode(zlib.compress(the_input, 9))
         else:
             raise ValueError('compress requires string input')
 
     @staticmethod
     def _decompress(the_input):
-        if isinstance(the_input, basestring):
+        if isinstance(the_input, str):
             return zlib.decompress(base64.b64decode(the_input))
         else:
             raise ValueError('decompress requires string input')

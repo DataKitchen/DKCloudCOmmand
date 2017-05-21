@@ -58,13 +58,13 @@ class DKAPIReturnCode:
                 contents = self.rd['message']
                 if isinstance(contents, dict) and 'error' in contents:
                     return contents['error']
-                elif isinstance(contents, basestring):
+                elif isinstance(contents, str):
                     return contents
                 else:
                     return 'TODO: figure out this case'
         # no rdict, just have the HTTP response
         if self.response is not None:
-            if isinstance(self.response.text, basestring):
+            if isinstance(self.response.text, str):
                 return self.response.text
         return ''
 

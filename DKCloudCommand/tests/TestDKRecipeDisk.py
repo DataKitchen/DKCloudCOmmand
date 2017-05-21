@@ -2,7 +2,7 @@ import unittest
 import sys
 import pickle
 import os, tempfile, shutil
-from DKCommonUnitTestSettings import DKCommonUnitTestSettings
+from .DKCommonUnitTestSettings import DKCommonUnitTestSettings
 
 from DKRecipeDisk import *
 from DKKitchenDisk import *
@@ -129,13 +129,13 @@ class TestDKRecipeDisk(DKCommonUnitTestSettings):
         local_sha = get_directory_sha(local_sha_dir)
         rv = compare_sha(recipe, local_sha)
         same_count = 0
-        for folder_name, folder_contents in rv['same'].iteritems():
+        for folder_name, folder_contents in rv['same'].items():
             same_count += len(folder_contents)
         self.assertTrue(same_count >= 12)
         self.assertEqual(len(rv['different']), 2)
 
         only_local_count = 0
-        for folder_name, folder_contents in rv['only_local'].iteritems():
+        for folder_name, folder_contents in rv['only_local'].items():
             only_local_count += len(folder_contents)
 
         self.assertEqual(only_local_count, 2)
@@ -144,7 +144,7 @@ class TestDKRecipeDisk(DKCommonUnitTestSettings):
         shutil.rmtree(temp_dir)
 
     def test_flatten_tree(self):
-        print 'hello'
+        print('hello')
 
     def test_build_sha1_directory(self):
         fp = os.path.join(os.getcwd(), 'files', 'recipe01')
