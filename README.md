@@ -1,8 +1,7 @@
 # DKCloudCommand
 [![PyPI version](https://badge.fury.io/py/DKCloudCommand.svg)](https://badge.fury.io/py/DKCloudCommand)
 
-**DKCloudCommand** is the command line interface for interacting with [DataKitchen's](https://datakitchen.io/dk/) \
-DataOps platform.  The companion web application is available [here](https://cloud.datakitchen.io/dk/#/welcome).
+**DKCloudCommand** is the command line interface for interacting with [DataKitchen's](https://datakitchen.io/dk/) DataOps platform.  The companion web application is available [here](https://cloud.datakitchen.io/dk/#/welcome).
 
 # DataOps
 
@@ -36,8 +35,7 @@ Python 3 users can use DKCloudCommand in their preferred virtual environment man
 
 ### Python Packages
 
-[Python package requirements](https://github.com/DataKitchen/DKCloudCommand/blob/master/requirements.txt) will be \
-installed or updated when installing DKCloudCommand.
+[Python package requirements](https://github.com/DataKitchen/DKCloudCommand/blob/master/requirements.txt) will be installed or updated when installing DKCloudCommand.
 
 * [aniso8601](https://pypi.python.org/pypi/aniso8601)
 * [Jinja2==2.7.3](http://jinja.pocoo.org/)
@@ -71,5 +69,5 @@ To upgrade DKCloudCommand:
 
 # Documentation
 
-Detailed documentation is available at [here](https://datakitchen.readme.io/docs/getting-started-cli).
+Detailed documentation is available [here](https://datakitchen.readme.io/docs).
 
