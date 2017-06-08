@@ -13,7 +13,7 @@
 4. Use Multiple Environments
 5. Reuse & Containerize
 6. Parameterize Your Processing
-7. Orchestrate Two Journeys
+7. Work Without Fear
 
 ### DataOps Resources
  
