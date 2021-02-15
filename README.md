@@ -69,5 +69,5 @@ To upgrade DKCloudCommand:
 
 # Documentation
 
-Detailed documentation is available [here](https://datakitchen.readme.io/docs).
+Detailed documentation is available [here](https://docs.datakitchen.io/articles/datakitchen-help/dkcloudcommand).
 
