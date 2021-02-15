@@ -26,7 +26,7 @@
 
 ### Python
 
-DKCloudCommand requires [Python 2.7](https://www.python.org/downloads/release/python-2712/).
+DKCloudCommand requires [Python 3.x](https://www.python.org/downloads/release/python-380/).
 
 Python 3 users can use DKCloudCommand in their preferred virtual environment manager:
 
