@@ -9,7 +9,7 @@ import shutil
 
 # if '../../' not in path:
 #    path.insert(0, '../../')
-from BaseTestCloud import BaseTestCloud
+from .BaseTestCloud import BaseTestCloud
 from DKCloudCommandRunner import DKCloudCommandRunner
 from DKActiveServingWatcher import *
 from DKCloudAPIMock import DKCloudAPIMock
@@ -33,7 +33,7 @@ class TestCloudCommandRunner(BaseTestCloud):
         rc = DKCloudCommandRunner.list_kitchen(self._api)
         self.assertTrue(rc.ok())
         rv = rc.get_message()
-        self.assertTrue(isinstance(rv, basestring))
+        self.assertTrue(isinstance(rv, str))
         self.assertTrue(tv1 in rv)
         self.assertTrue(tv2 in rv)
         self.assertTrue(tv3 in rv)
@@ -318,18 +318,18 @@ class TestCloudCommandRunner(BaseTestCloud):
         # make and cd to kitchen dir and get the recipe to disk
         temp_dir, kitchen_dir, recipe_dir = self._make_recipe_dir(recipe_name, test_kitchen)
         os.chdir(kitchen_dir)
-        print 'Working in directory %s' % recipe_dir
+        print('Working in directory %s' % recipe_dir)
         start_time = time.time()
         rs = DKCloudCommandRunner.get_recipe(self._api, test_kitchen, recipe_name)
         elapsed_recipe_status = time.time() - start_time
-        print 'get_recipe - elapsed: %d' % elapsed_recipe_status
+        print('get_recipe - elapsed: %d' % elapsed_recipe_status)
         self.assertTrue(rs.ok())
 
         os.chdir(recipe_dir)
         start_time = time.time()
         rc = DKCloudCommandRunner.recipe_status(self._api, test_kitchen, recipe_name)
         elapsed_recipe_status = time.time() - start_time
-        print 'recipe_status - elapsed: %d' % elapsed_recipe_status
+        print('recipe_status - elapsed: %d' % elapsed_recipe_status)
         msg = rc.get_message()
         self.assertTrue('files differ' not in msg)
         self.assertTrue('only on local' not in msg)
@@ -379,7 +379,7 @@ class TestCloudCommandRunner(BaseTestCloud):
         start_time = time.time()
         rc = DKCloudCommandRunner.recipe_status(self._api, test_kitchen, recipe_name)
         elapsed_recipe_status = time.time() - start_time
-        print 'recipe_status - elapsed: %d' % elapsed_recipe_status
+        print('recipe_status - elapsed: %d' % elapsed_recipe_status)
         msg = rc.get_message()
 
         match = re.search(r"([0-9]*) files are unchanged", msg)
@@ -403,7 +403,7 @@ class TestCloudCommandRunner(BaseTestCloud):
         start_time = time.time()
         rc = DKCloudCommandRunner.update_all_files(self._api, test_kitchen, recipe_name, recipe_dir, 'update all dryrun', dryrun=True)
         elapsed_recipe_status = time.time() - start_time
-        print 'update_all_files - elapsed: %d' % elapsed_recipe_status
+        print('update_all_files - elapsed: %d' % elapsed_recipe_status)
 
         self.assertTrue(rc.ok())
         msg = rc.get_message()
@@ -416,7 +416,7 @@ class TestCloudCommandRunner(BaseTestCloud):
         start_time = time.time()
         rc = DKCloudCommandRunner.update_all_files(self._api, test_kitchen, recipe_name, recipe_dir, 'update all')
         elapsed_recipe_status = time.time() - start_time
-        print 'update_all_files - elapsed: %d' % elapsed_recipe_status
+        print('update_all_files - elapsed: %d' % elapsed_recipe_status)
 
         self.assertTrue(rc.ok())
         msg = rc.get_message()
@@ -466,8 +466,8 @@ class TestCloudCommandRunner(BaseTestCloud):
             os.chdir(recipe_name)
             with open(api_file_key, 'w') as f:
                 f.write(file_contents)
-        except ValueError, e:
-            print('could not write file %s.' % e)
+        except ValueError as e:
+            print(('could not write file %s.' % e))
             self.assertTrue(False)
 
         # add file from disk THE TEST
@@ -784,7 +784,7 @@ class TestCloudCommandRunner(BaseTestCloud):
         rs = DKCloudCommandRunner._print_test_results(rdict)
         # look for some strings so you know it worked
         # but don't look for too much so the test breaks if we re-format
-        print rs
+        print(rs)
         self.assertTrue('File' in rs)
 
     def test_active_serving_watcher(self):
@@ -811,11 +811,11 @@ class TestCloudCommandRunner(BaseTestCloud):
         wait_time = [.1, 1, 3, 3, 3, 3, 9, 18]
         found_active_serving = False
         wait_generator = (wt for wt in wait_time if found_active_serving is False)
-        print 'test_active_serving_watcher: found_active_serving, trying ... '
+        print('test_active_serving_watcher: found_active_serving, trying ... ')
         for wt in wait_generator:
             time.sleep(wt)
             resp1 = DKCloudCommandRunner.orderrun_detail(self._api, kitchen, {'summary': True})
-            print 'test_active_serving_watcher: found_active_serving is False (%s)' % wt
+            print('test_active_serving_watcher: found_active_serving is False (%s)' % wt)
             # print 'got', resp1.get_message()
             message = resp1.get_message()
             if resp1.ok() and ('OrderRun is Planned' in message or 'OrderRun Completed' in message

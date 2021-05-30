@@ -10,7 +10,7 @@ import time
 from sys import path
 from subprocess import check_output
 from click.testing import CliRunner
-from BaseTestCloud import BaseTestCloud
+from .BaseTestCloud import BaseTestCloud
 
 if not '../modules/' in path:
     path.insert(0, '../modules/')
@@ -368,8 +368,8 @@ class TestCommandLine(BaseTestCloud):
             f = open(api_file_key, 'w')
             f.write(file_contents)
             f.close()
-        except ValueError, e:
-            print('could not write file %s.' % e)
+        except ValueError as e:
+            print(('could not write file %s.' % e))
             self.assertTrue(False)
 
         # add file from disk THE TEST
@@ -720,7 +720,7 @@ class TestCommandLine(BaseTestCloud):
         self.assertTrue(0 == result.exit_code)
 
         # start order & order run
-        print 'Starting Create-Order in test_orderrun_stop()'
+        print('Starting Create-Order in test_orderrun_stop()')
         result = runner.invoke(dk, ['order-run',
                                     '--kitchen', new_kitchen,
                                     '--recipe', recipe_name,
@@ -739,11 +739,11 @@ class TestCommandLine(BaseTestCloud):
             time.sleep(wt)
             resp1 = runner.invoke(dk, ['orderrun-info', '-k', new_kitchen, '--runstatus'])
             if resp1.output is not None:
-                print '(%i) got %s' % (wt, resp1.output)
+                print('(%i) got %s' % (wt, resp1.output))
                 if "ACTIVE_SERVING" in resp1.output:
                     found_active_serving = True
         self.assertTrue(found_active_serving)
-        print 'test_orderrun_stop: found_active_serving is True'
+        print('test_orderrun_stop: found_active_serving is True')
 
         resp2 = runner.invoke(dk, ['orderrun-info', '-k', new_kitchen, '--disp_order_run_id'])
         orderrun_id = resp2.output
@@ -758,10 +758,10 @@ class TestCommandLine(BaseTestCloud):
             time.sleep(wt)
             resp4 = runner.invoke(dk, ['orderrun-info', '-k', new_kitchen, '--runstatus'])
             if resp4.output is not None:
-                print '(%i) got %s' % (wt, resp4.output)
+                print('(%i) got %s' % (wt, resp4.output))
                 if "STOPPED_SERVING" in resp4.output:
                     found_stopped_state = True
-        print 'test_orderrun_stop: found_stopped_state is True'
+        print('test_orderrun_stop: found_stopped_state is True')
         self.assertTrue(found_stopped_state)
 
         # cleanup
@@ -780,7 +780,7 @@ class TestCommandLine(BaseTestCloud):
         self.assertTrue(0 == result.exit_code)
 
         # start order & order run
-        print 'Starting Create-Order in test_scenario_orderrun_stop()'
+        print('Starting Create-Order in test_scenario_orderrun_stop()')
         result = runner.invoke(dk, ['order-run',
                                     '--kitchen', new_kitchen,
                                     '--recipe', recipe_name,
@@ -799,11 +799,11 @@ class TestCommandLine(BaseTestCloud):
             time.sleep(wt)
             resp1 = runner.invoke(dk, ['orderrun-info', '-k', new_kitchen, '--runstatus'])
             if resp1.output is not None:
-                print '(%i) got %s' % (wt, resp1.output)
+                print('(%i) got %s' % (wt, resp1.output))
                 if "ACTIVE_SERVING" in resp1.output:
                     found_active_serving = True
         self.assertTrue(found_active_serving)
-        print 'test_scenario_orderrun_stop: found_active_serving is True'
+        print('test_scenario_orderrun_stop: found_active_serving is True')
 
         # wait for state "COMPLETED_SERVING"
         found_completed_serving = False
@@ -812,11 +812,11 @@ class TestCommandLine(BaseTestCloud):
             time.sleep(wt)
             resp2 = runner.invoke(dk, ['orderrun-info', '-k', new_kitchen, '--runstatus'])
             if resp2.output is not None:
-                print '(%i) got %s' % (wt, resp2.output)
+                print('(%i) got %s' % (wt, resp2.output))
                 if "COMPLETED_SERVING" in resp2.output:
                     found_completed_serving = True
         self.assertTrue(found_completed_serving)
-        print 'test_scenario_orderrun_stop: found_completed_serving is True'
+        print('test_scenario_orderrun_stop: found_completed_serving is True')
 
         # cleanup
         runner.invoke(dk, ['kitchen-delete', new_kitchen])

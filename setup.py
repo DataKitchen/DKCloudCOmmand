@@ -79,7 +79,7 @@ if os.path.exists(try1):  # if developer environment
 elif os.path.exists(try2):  # target machine
     reqts = try2
 else:
-    print 'cannot fine list of requirements'
+    print('cannot fine list of requirements')
     exit(2)
     
 with open(reqts) as f:

@@ -8,7 +8,7 @@ import time
 from sys import path
 from subprocess import check_output
 from click.testing import CliRunner
-from BaseTestCloud import BaseTestCloud
+from .BaseTestCloud import BaseTestCloud
 if not '../modules/' in path:
     path.insert(0, '../modules/')
 

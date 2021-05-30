@@ -11,7 +11,7 @@ import base64
 import os, shutil
 from collections import OrderedDict
 
-from BaseTestCloud import BaseTestCloud
+from .BaseTestCloud import BaseTestCloud
 from DKCloudAPI import DKCloudAPI
 from DKCloudCommandRunner import DKCloudCommandRunner
 
@@ -116,7 +116,7 @@ class TestCloudAPI(BaseTestCloud):
             pickle.dump(rs, open("recipe.p", "wb"))
         found = False
         for r in rs:
-            if isinstance(r, unicode):
+            if isinstance(r, str):
                 found = True
         self.assertTrue(found)  # should get back a list of strings
 
@@ -132,7 +132,7 @@ class TestCloudAPI(BaseTestCloud):
         start_time = time.time()
         rv = DKCloudCommandRunner.get_recipe(self._api, kitchen, recipe)
         elapsed_recipe_status = time.time() - start_time
-        print 'get_recipe - elapsed: %d' % elapsed_recipe_status
+        print('get_recipe - elapsed: %d' % elapsed_recipe_status)
 
         new_path = os.path.join(kitchen_dir, recipe)
         os.chdir(new_path)
@@ -175,7 +175,7 @@ class TestCloudAPI(BaseTestCloud):
         start_time = time.time()
         rc = self._api.recipe_status(kitchen, recipe)
         elapsed_recipe_status = time.time() - start_time
-        print 'recipe_status - elapsed: %d' % elapsed_recipe_status
+        print('recipe_status - elapsed: %d' % elapsed_recipe_status)
         self.assertTrue(rc.ok())
         rv = rc.get_payload()
         self.assertEqual(len(rv['different']), 1)
@@ -192,7 +192,7 @@ class TestCloudAPI(BaseTestCloud):
         paths_sorted = sorted(paths)
         for idx, path in enumerate(paths_sorted):
             dir = os.path.dirname(os.path.commonprefix(paths))
-        print dir
+        print(dir)
 
     def test_update_file(self):
         # setup
@@ -447,7 +447,7 @@ class TestCloudAPI(BaseTestCloud):
         resp = self._get_compiled_serving(parent_kitchen, recipe_name, variation_name)
         self.assertTrue(isinstance(resp, dict))
         found = False
-        for rn, recipe in resp.iteritems():
+        for rn, recipe in resp.items():
             if rn == recipe_name:
                 found = True
         self.assertTrue(found)
@@ -801,7 +801,7 @@ class TestCloudAPI(BaseTestCloud):
             rc = self._api.list_order(new_kitchen)
             self.assertTrue(rc.ok())
             order_stuff = rc.get_payload()
-            print '%i got %s' % (wt, order_stuff)
+            print('%i got %s' % (wt, order_stuff))
             self.assertTrue('servings' in order_stuff)
             found_serving = next(
                     (serving for serving in order_stuff['servings'] if serving['serving_chronos_id'] == new_order_id),
@@ -1016,7 +1016,7 @@ class TestCloudAPI(BaseTestCloud):
         rc = self._api.create_order(kitchen, recipe, variation, node)
         self.assertTrue(rc.ok())
         rs = rc.get_payload()
-        self.assertTrue(isinstance(rs, basestring))
+        self.assertTrue(isinstance(rs, str))
         return rs
 
     def _order_delete_all(self, kitchen):

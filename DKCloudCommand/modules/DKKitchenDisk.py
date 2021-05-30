@@ -33,7 +33,7 @@ class DKKitchenDisk:
             try:
                 os.makedirs(recipes_meta_dir)
             except OSError as e:
-                print "%s - %s - %s" % (e.filename, e.errno, e.message)
+                print("%s - %s - %s" % (e.filename, e.errno, e.message))
                 return None
         return recipes_meta_dir
 
@@ -58,7 +58,7 @@ class DKKitchenDisk:
         if recipes is None:
             return None
 
-        from DKRecipeDisk import DKRecipeDisk
+        from .DKRecipeDisk import DKRecipeDisk
         all_unresolved = {}
         for recipe in recipes:
             recipe_meta_dir = DKKitchenDisk.get_recipe_meta_dir(recipe, start_dir)
@@ -73,7 +73,7 @@ class DKKitchenDisk:
         if recipes is None:
             return None
 
-        from DKRecipeDisk import DKRecipeDisk
+        from .DKRecipeDisk import DKRecipeDisk
         all_resolved = {}
         for recipe in recipes:
             recipe_meta_dir = DKKitchenDisk.get_recipe_meta_dir(recipe, start_dir)
@@ -150,7 +150,7 @@ class DKKitchenDisk:
                     # Maybe throw an error here. The .dk folder is in a bad state
                     return None
             except IOError:
-                print "No KITCHEN_META found in '%s'" % (os.path.join(walk_dir, DK_DIR))
+                print("No KITCHEN_META found in '%s'" % (os.path.join(walk_dir, DK_DIR)))
                 return None
         else:
             if recurse:

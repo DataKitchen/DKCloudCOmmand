@@ -164,7 +164,7 @@ class AliasedGroup(click.Group):
             return rv
 
         found_command = next(
-            (long_command for long_command, short_command in alias_exceptions.items() if short_command == cmd_name),
+            (long_command for long_command, short_command in list(alias_exceptions.items()) if short_command == cmd_name),
             None)
 
         if found_command is not None:
@@ -253,7 +253,7 @@ def config_list(backend):
     Print the current configuration
     """
     click.secho('Print Configuration', fg='green')
-    print str(backend.dki.get_config())
+    print(str(backend.dki.get_config()))
 
 
 @dk.command(name='recipe-status')
@@ -652,7 +652,7 @@ def active_serving_watcher(backend, kitchen, period):
             if not DKCloudCommandRunner.watcher_running():
                 break
         except KeyboardInterrupt:
-            print 'KeyboardInterrupt'
+            print('KeyboardInterrupt')
             exit_gracefully(None, None)
     exit(0)
 
@@ -696,7 +696,7 @@ def order_delete(backend, kitchen, order_id):
     Delete one order or all orders in a kitchen
     """
     use_kitchen = Backend.get_kitchen_name_soft(kitchen)
-    print use_kitchen
+    print(use_kitchen)
     if use_kitchen is None and order_id is None:
         raise click.ClickException('You must specify either a kitchen or an order_id or be in a kitchen directory')
 
@@ -920,7 +920,7 @@ def exit_gracefully(signum, frame):
     question = False
     if question is True:
         try:
-            if raw_input("\nReally quit? (y/n)> ").lower().startswith('y'):
+            if input("\nReally quit? (y/n)> ").lower().startswith('y'):
                 exit(1)
         except (KeyboardInterrupt, SystemExit):
             print("Ok ok, quitting")
